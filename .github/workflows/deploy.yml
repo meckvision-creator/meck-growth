@@ -1,0 +1,23 @@
+name: Deploy to Cloudflare Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip if Cloudflare secrets are not set
+        if: env.CF_TOKEN == ''
+        run: echo "CLOUDFLARE_API_TOKEN secret not set; skipping deploy. Deploy manually with wrangler (see README)."
+      - name: Deploy
+        if: env.CF_TOKEN != ''
+        run: npx --yes wrangler@4 pages deploy . --project-name=meck-growth --branch=main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
