@@ -1,6 +1,6 @@
 # MECK. · Growth Operations Builder
 
-Personal portfolio for Meck (Zayn). Plain static site: HTML, CSS and vanilla JS, no build step.
+Personal portfolio for Meck. Plain static site: HTML, CSS and vanilla JS, no build step.
 
 Live: https://meck-growth.pages.dev
 
